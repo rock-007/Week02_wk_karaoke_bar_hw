@@ -85,6 +85,17 @@ class Test_room(unittest.TestCase):
         added_song = self.room_01.add_song_to_guest_play_list(self.song_01)
         self.assertEqual("Please add the guest first in the room", added_song) 
 
+# If the guest dont have enough money to enter the room
+
     def test_guest_03_wallent_not_enough_money_to_enter_room_01(self):
-        result = self.room_02.guest_check_In(self.guest_03, self.main_bar)
-        self.assertEqual(f'You do not have enough money to enter the room {self.room_02.name}', result )
+        wallet_status = self.room_02.guest_check_In(self.guest_03, self.main_bar)
+        self.assertEqual(f'You do not have enough money to enter the room {self.room_02.name}', wallet_status )
+
+# If guest favourite song is added to paly list
+
+    def test_guest_01_favourite_song_being_played(self):
+        self.room_01.guest_check_In(self.guest_01, self.main_bar)
+        self.room_01.add_song_to_guest_play_list(self.song_01)
+        favourite_song = self.room_01.add_song_to_guest_play_list(self.song_02)
+
+        self.assertEqual("Whoo!", favourite_song)

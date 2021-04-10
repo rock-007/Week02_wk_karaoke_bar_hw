@@ -39,7 +39,7 @@ class Room:
     def add_song_to_guest_play_list(self, song):
         if self.guest:
             self.playlist.append(song.name)
-            if song in self.guest.favourite_song:
+            if song.name in self.guest.favourite_song:
                 return "Whoo!"
         else:
             return "Please add the guest first in the room"
