@@ -12,7 +12,7 @@ class Room:
         if  self in bar.live_rooms and self.room_capacity > 1 and guest.wallet >= self.room_fare :
             self.guest = guest
             self.playlist = []
-            self.update_till_and_wallet(bar)
+            self.update_till_and_wallet(guest, bar)
             self.fill_up_room(bar)
 
             
@@ -21,9 +21,11 @@ class Room:
         else:
             return "The room is already full or closed"
     
-    def update_till_and_wallet(self,bar):
+    def update_till_and_wallet(self, guest, bar):
         self.guest.wallet -= self.room_fare
-        bar.till += self.room_fare
+        bar.each_guest_total_spending(guest, self.room_fare)
+        bar.update_till(self.room_fare)
+        #bar.till += self.room_fare
 
 
     def fill_up_room(self, bar):
@@ -44,7 +46,7 @@ class Room:
         else:
             return "Please add the guest first in the room"
 
-        
-    
+
+
 
 

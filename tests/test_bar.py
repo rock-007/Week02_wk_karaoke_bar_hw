@@ -23,3 +23,5 @@ class Test_bar(unittest.TestCase):
     def test_bar_closed_rooms(self):
         self.assertEqual(self.room_03, self.main_bar.closed_rooms)
 
+
+
