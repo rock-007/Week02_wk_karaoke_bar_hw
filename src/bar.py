@@ -7,7 +7,10 @@ class Bar:
         self.guests_spending={}
 
     def check_guest_spending(self, guest):
-        return f'So far total spending for {guest.name} is {self.guests_spending.get(guest.name)}' 
+        if  guest.name not in self.guests_spending:
+            return "The guest hasnt enter any room yet"
+        else:
+            return f'So far total spending for {guest.name} is {self.guests_spending.get(guest.name)}' 
     
     def each_guest_total_spending(self, guest, fare):
         if  guest.name in self.guests_spending:
