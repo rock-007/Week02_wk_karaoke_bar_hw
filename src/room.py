@@ -6,22 +6,8 @@ class Room:
         self.playlist= None
         self.room_capacity = 2
 
+# Check_in
 
-    def check_guest_in_guest_list(self, guest):
-        if guest in self.guest_list:
-            return True
-        else:
-            return False
-
-    def room_status(self, bar):
-        return (self in bar.live_rooms and self.room_capacity > 1)
-    
-    def guest_status(self,guest):
-        return guest.wallet >= self.room_fare and not self.check_guest_in_guest_list(guest)
-
-        
-
-    
     def guest_check_In(self, guest, bar):
         if  self.room_status(bar) and self.guest_status(guest):
             self.update_guest_list(guest)
@@ -34,34 +20,40 @@ class Room:
             return f'You do not have enough money to enter the room {self.name}'    
         else:
             return "The room is already full or closed"
-    def guest_check_out(self, guest, bar):
-        if guest in self.guest_list:
-            self.guest_list.remove(guest)
-            bar.remove_guest_spending_info(guest)
 
+    def room_status(self, bar):
+        return (self in bar.live_rooms and self.room_capacity > 1)
+    
+    def guest_status(self,guest):
+        return guest.wallet >= self.room_fare and not self.check_guest_in_guest_list(guest)
     
     def update_guest_list(self,guest):
         self.guest_list.append(guest)
-
-    def update_bar_guest_spending(self, guest, bar):
-        bar.each_guest_total_spending(guest, self.room_fare)
-
-    def update_wallet(self, guest, bar):
-        guest.update_wallet(self.room_fare)
-        
+    
     def update_till(self, guest, bar):
         bar.update_till(self.room_fare)
 
+    def update_wallet(self, guest, bar):
+        guest.update_wallet(self.room_fare)
+    
+    def update_bar_guest_spending(self, guest, bar):
+        bar.adding_guests_total_spending(guest, self.room_fare)
+    
     def fill_up_room(self, bar):
         self.room_capacity -= 1
         if self.room_capacity < 1:
             bar.live_rooms.remove(self)
             bar.full_rooms.append(self)
 
+#Check_out
 
-    def check_play_list(self):
-        return self.playlist
-        
+    def guest_check_out(self, guest, bar):
+        if guest in self.guest_list:
+            self.guest_list.remove(guest)
+            bar.remove_guest_spending_info(guest)
+
+# Add_songs_to_play_list
+
     def add_song_to_guest_play_list(self, song, guest):
 
         if guest in self.guest_list:
@@ -69,9 +61,17 @@ class Room:
             if song.name in guest.favourite_song:
                 return "Whoo!"
         else:
-            return "Please add the guest first in the room"
+            return "Please add the guest first in the room"    
 
+# check_guest_in_guest_list_and_check_play_list
 
+    def check_guest_in_guest_list(self, guest):
+        if guest in self.guest_list:
+            return True
+        else:
+            return False
 
+    def check_play_list(self):
+        return self.playlist
 
 

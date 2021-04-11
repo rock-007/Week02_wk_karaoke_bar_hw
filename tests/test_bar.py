@@ -12,13 +12,16 @@ class Test_bar(unittest.TestCase):
 
 
 
-
+# Live_room_testing
 
     def test_bar_live_rooms(self):
         self.assertEqual([self.room_01,self.room_02], self.main_bar.live_rooms)
-        
+
+# Full_room_testing
     def test_bar_full_rooms(self):
         self.assertEqual([], self.main_bar.full_rooms)
+
+# closed_room_testing
 
     def test_bar_closed_rooms(self):
         self.assertEqual(self.room_03, self.main_bar.closed_rooms)
