@@ -37,11 +37,18 @@ class Test_room(unittest.TestCase):
 # Guest CheckIn testing
     def test_check_in_guest_01_room_01(self):
         self.room_01.guest_check_In(self.guest_01, self.main_bar)
-        self.assertEqual(self.guest_01, self.room_01.guest)
+        self.assertEqual(True, self.room_01.check_guest_in_guest_list(self.guest_01))
 
     def test_check_in_guest_02_room_02(self):
         self.room_02.guest_check_In(self.guest_02, self.main_bar)
-        self.assertEqual(self.guest_02, self.room_02.guest)
+        self.assertEqual(True, self.room_02.check_guest_in_guest_list(self.guest_02))
+# Guest CheckOut testing
+    def test_check_out_guest_01_room_01(self):
+        self.room_01.guest_check_In(self.guest_01, self.main_bar)
+        self.room_01.guest_check_In(self.guest_02, self.main_bar)
+        self.room_01.guest_check_out(self.guest_01, self.main_bar)
+        self.assertEqual(False, self.room_01.check_guest_in_guest_list(self.guest_01))
+        self.assertEqual(f'Currently the Guest: {self.guest_01.name} is not in any room', self.main_bar.check_guest_spending(self.guest_01))
 
 # Room Capacity testing
     def test_check_in_guest_01_room_02_full(self):
@@ -66,7 +73,7 @@ class Test_room(unittest.TestCase):
 
     def test_add_song_01_to_guest_01_in_room_01(self):
         self.room_01.guest_check_In(self.guest_01, self.main_bar)
-        self.room_01.add_song_to_guest_play_list(self.song_01)
+        self.room_01.add_song_to_guest_play_list(self.song_01, self.guest_01)
         play_list =  self.room_01.check_play_list()
         self.assertEqual("Friends in Low Places", play_list[0])  
 
@@ -74,8 +81,8 @@ class Test_room(unittest.TestCase):
 
     def test_add_song_01_and_song_02_to_guest_01_in_room_01(self):
         self.room_01.guest_check_In(self.guest_01, self.main_bar)
-        self.room_01.add_song_to_guest_play_list(self.song_01)
-        self.room_01.add_song_to_guest_play_list(self.song_02)
+        self.room_01.add_song_to_guest_play_list(self.song_01, self.guest_01)
+        self.room_01.add_song_to_guest_play_list(self.song_02, self.guest_01)
 
         play_list =  self.room_01.check_play_list()
         self.assertEqual(['Friends in Low Places', 'Wagon Wheel'], play_list)  
@@ -83,7 +90,7 @@ class Test_room(unittest.TestCase):
 #  cant add song to play list without guest in the room
 
     def test_add_song_01_with_out_any_guest_in_room_01(self):
-        added_song = self.room_01.add_song_to_guest_play_list(self.song_01)
+        added_song = self.room_01.add_song_to_guest_play_list(self.song_01, None)
         self.assertEqual("Please add the guest first in the room", added_song) 
 
 # If the guest dont have enough money to enter the room
@@ -96,9 +103,8 @@ class Test_room(unittest.TestCase):
 
     def test_guest_01_favourite_song_being_played(self):
         self.room_01.guest_check_In(self.guest_01, self.main_bar)
-        self.room_01.add_song_to_guest_play_list(self.song_01)
-        favourite_song = self.room_01.add_song_to_guest_play_list(self.song_02)
-
+        self.room_01.add_song_to_guest_play_list(self.song_01, self.guest_01)
+        favourite_song = self.room_01.add_song_to_guest_play_list(self.song_02, self.guest_01)
         self.assertEqual("Whoo!", favourite_song)
 
 # Each customer spendings       

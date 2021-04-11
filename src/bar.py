@@ -8,7 +8,7 @@ class Bar:
 
     def check_guest_spending(self, guest):
         if  guest.name not in self.guests_spending:
-            return "The guest hasnt enter any room yet"
+            return f'Currently the Guest: {guest.name} is not in any room'
         else:
             return f'So far total spending for {guest.name} is {self.guests_spending.get(guest.name)}' 
     
@@ -20,3 +20,7 @@ class Bar:
 
     def update_till(self, room_fare):
         self.till += room_fare
+
+    def remove_guest_spending_info(self, guest):
+        if guest.name in self.guests_spending:
+            del self.guests_spending[guest.name]
