@@ -103,7 +103,7 @@ class Test_room(unittest.TestCase):
         favourite_song = self.room_01.add_song_to_guest_play_list(self.song_02, self.guest_01)
         self.assertEqual("Whoo!", favourite_song)
 
-# Each_customer_spendings       
+# Each_customer_spending_track_by_main_bar       
     
     def test_each_customer_total_spendings(self):
         self.room_01.guest_check_In(self.guest_01, self.main_bar)

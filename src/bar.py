@@ -6,6 +6,8 @@ class Bar:
         self.full_rooms=[]
         self.guests_spending={}
 
+# Updating_till
+
     def update_till(self, room_fare):
         self.till += room_fare
 

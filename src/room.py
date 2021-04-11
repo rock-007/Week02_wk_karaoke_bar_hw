@@ -27,6 +27,9 @@ class Room:
     def guest_status(self,guest):
         return guest.wallet >= self.room_fare and not self.check_guest_in_guest_list(guest)
     
+    def check_guest_in_guest_list(self, guest):
+        return guest in self.guest_list
+
     def update_guest_list(self,guest):
         self.guest_list.append(guest)
     
@@ -63,13 +66,15 @@ class Room:
         else:
             return "Please add the guest first in the room"    
 
-# check_guest_in_guest_list_and_check_play_list
+# Check_guest_in_guest_list
 
     def check_guest_in_guest_list(self, guest):
         if guest in self.guest_list:
             return True
         else:
             return False
+
+# Check_play_list
 
     def check_play_list(self):
         return self.playlist
