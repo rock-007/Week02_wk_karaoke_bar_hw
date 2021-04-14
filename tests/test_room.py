@@ -16,6 +16,8 @@ class Test_room(unittest.TestCase):
         self.guest_01 = Guest("Umair", 70, ["Wagon Wheel"])
         self.guest_02 = Guest("Muneeb", 90,[])
         self.guest_03 = Guest("Ali", 35,[])
+        self.guest_04 = Guest("Ahmed", 77,[])
+
         self.song_01 = Song("Friends in Low Places", "Country")
         self.song_02 = Song("Wagon Wheel", "Country")
         self.song_03 = Song("I Wanna Dance with Somebody", "Pop")
@@ -38,10 +40,12 @@ class Test_room(unittest.TestCase):
     def test_check_in_guest_01_room_01(self):
         self.room_01.guest_check_In(self.guest_01, self.main_bar)
         self.assertEqual(True, self.room_01.check_guest_in_guest_list(self.guest_01))
-
+    
     def test_check_in_guest_02_room_02(self):
         self.room_02.guest_check_In(self.guest_02, self.main_bar)
         self.assertEqual(True, self.room_02.check_guest_in_guest_list(self.guest_02))
+
+
 # Guest_CheckOut_testing
     def test_check_out_guest_01_room_01(self):
         self.room_01.guest_check_In(self.guest_01, self.main_bar)

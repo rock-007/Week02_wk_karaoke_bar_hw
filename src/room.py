@@ -16,13 +16,13 @@ class Room:
             self.update_wallet(guest, bar)
             self.update_bar_guest_spending(guest, bar)
             self.fill_up_room(bar)
-        elif self in bar.live_rooms and self.room_capacity > 1:
+        elif self in bar.live_rooms and self.room_capacity > 0:
             return f'You do not have enough money to enter the room {self.name}'    
         else:
             return "The room is already full or closed"
 
     def room_status(self, bar):
-        return (self in bar.live_rooms and self.room_capacity > 1)
+        return (self in bar.live_rooms and self.room_capacity > 0)
     
     def guest_status(self,guest):
         return guest.wallet >= self.room_fare and not self.check_guest_in_guest_list(guest)
@@ -40,10 +40,13 @@ class Room:
         bar.adding_guests_total_spending(guest, self.room_fare)
     
     def fill_up_room(self, bar):
-        self.room_capacity -= 1
-        if self.room_capacity < 1:
+        
+        if self.room_capacity > 0:
             bar.live_rooms.remove(self)
             bar.full_rooms.append(self)
+        
+        self.room_capacity -= 1
+    
 
 #Check_out
 

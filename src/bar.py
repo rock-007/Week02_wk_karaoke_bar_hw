@@ -35,3 +35,13 @@ class Bar:
         else:
             return f'So far total spending for Guest: {guest.name} is {self.guests_spending.get(guest.name)}£' 
 
+
+# check room in live rooms
+    def check_room_in_live_rooms(self,room):
+        return room in self.live_rooms
+
+
+# check room in full rooms
+
+    def check_room_in_full_rooms(self,room):
+        return room in self.live_rooms
