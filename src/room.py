@@ -21,6 +21,9 @@ class Room:
         else:
             return "The room is already full or closed"
 
+    def update_bar_guest_spending(self, guest, bar):
+        bar.adding_guests_total_spending(guest, self.room_fare)
+        
     def room_status(self, bar):
         return (self in bar.live_rooms and self.room_capacity > 0)
     
@@ -36,8 +39,7 @@ class Room:
     def update_wallet(self, guest, bar):
         guest.update_wallet(self.room_fare)
     
-    def update_bar_guest_spending(self, guest, bar):
-        bar.adding_guests_total_spending(guest, self.room_fare)
+
     
     def fill_up_room(self, bar):
         
